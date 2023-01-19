@@ -15,6 +15,7 @@
             <VerticalStackLayout Padding="10"
                                  Margin="20">
 
+                
                 <Label Text="My Todo List"
                        FontFamily="Arial"
                        HorizontalTextAlignment="Center"
