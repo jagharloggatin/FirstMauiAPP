@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FirstMauiAPP.MainPage"
+             xmlns:viewmodel="clr-namespace:FirstMauiAPP.ViewModel"
+             x:DataType="viewmodel:MainViewModel"
+             >
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <VerticalStackLayout Padding="10"
+                                 Margin="20">
+
+                <Label Text="My Todo List"
+                       FontFamily="Arial"
+                       HorizontalTextAlignment="Center"
+                       TextColor="Purple"
+                       FontAttributes="Bold"
+                       FontSize="34"
+                       />
+                <Entry Placeholder="Enter Task"
+                           Text="{Binding Text}"/>
+
+                <Button Text="Add"
+                        Command="{Binding AddCommand}"/>
+                <Button Text="Clear"
+                        Command="{Binding ClearAllItemsCommand}"/>
+
+                <RefreshView Command="{Binding RefreshCommand}"
+                             IsRefreshing="false">
+                <CollectionView ItemsSource="{Binding Items}"
+                                >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type x:String}">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Delete"
+                                                        BackgroundColor="Red"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=RemoveCommand}"
+                                                       CommandParameter="{Binding .}">
+                                        </SwipeItem>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <VerticalStackLayout>
+                                    <Frame>
+                                        <Label Text="{Binding .}"
+                                                   FontSize="24"
+                                                   TextColor="DarkGray"/>
+                                    </Frame>
+                                </VerticalStackLayout>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+                </RefreshView>
+
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
